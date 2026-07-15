@@ -30,6 +30,8 @@ function setup() {
     video.size(canvasWidth, canvasHeight);
     video.hide();
 
+    setupInteractive();
+
     handPose.detectStart(video, gotHands);
 }
 
@@ -55,6 +57,10 @@ function draw() {
             updateRightHandDistance(hand);
         }
     }
+
+    updateElementScale(leftHandDistanceNormalized);
+    drawCurrentElement();
+
 }
 
 function drawThumbIndexLine(hand) {
@@ -139,6 +145,9 @@ function updateRightHandSwitch(rotationDegrees) {
 
     if (isOverThreshold && rightHandWasOverThreshold === false) {
         rightHandSwitch = !rightHandSwitch;
+
+        advanceElement();
+
     }
 
     rightHandWasOverThreshold = isOverThreshold;
